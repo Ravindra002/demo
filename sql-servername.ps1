@@ -1,0 +1,1 @@
+Invoke-Sqlcmd -ServerInstance sql-server\sqlexpress -Query "select name from sys.databases"
