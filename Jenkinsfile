@@ -3,12 +3,12 @@ pipeline {
   stages {
     stage ('version') {
       steps {
-          sh 'pwsh --version'
+          bat 'pwsh --version'
       }
     }
     stage ('dropdatabase') {
       steps {
-          sh 'pwsh sql-servername.ps1'
+          bat 'pwsh sql-servername.ps1'
       }
     }
   }
