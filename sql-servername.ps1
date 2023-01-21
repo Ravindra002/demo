@@ -1,4 +1,4 @@
-$sqlserver = 'sql-server\sqlexpress'
+$sqlserver = '10.0.0.10'
 $database = 'test'
 
 Try{
