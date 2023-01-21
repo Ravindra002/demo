@@ -8,7 +8,7 @@ pipeline {
     }
     stage ('dropdatabase') {
       steps {
-          bat 'pwsh sql-servername.ps1'
+          bat 'powershell.exe sql-servername.ps1'
       }
     }
   }
