@@ -9,6 +9,11 @@ pipeline {
                    steps {
                           PowerShell(". '.\\sql-servername.ps1'") 
                    }
-              }     
+              } 
+             stage ('dropservername') {
+                   steps {
+                          PowerShell(". '.\\drop-servername.ps1'") 
+                   }
+              }
            }
         }
