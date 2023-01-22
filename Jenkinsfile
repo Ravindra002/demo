@@ -3,7 +3,7 @@ pipeline {
         stages {
              stage ('dropdatabase') {
                    steps {
-                         bat 'pwsh sql-servername.ps1'
+                          PowerShell(". '.sql-servername.ps1'") 
                    }
               }     
            }
