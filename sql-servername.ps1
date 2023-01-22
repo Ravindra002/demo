@@ -16,5 +16,19 @@ JOIN sys.dm_exec_sessions des ON dec.session_id = des.session_id
 WHERE dec.session_id = @@SPID
 '
 
+function SqlQuery($server, $database, $query)
+{
+ $connection = New-Object System.Data.SqlClient.SqlConnection
+ $connection.ConnectionString = "Server=$server;Database=$database;Integrated Security=True;"
+ $connection.Open()
+ $command = $connection.CreateCommand()
+ $command.CommandText = $query
+ $result = $command.ExecuteReader()
+ $table = new-object “System.Data.DataTable”
+ $table.Load($result)
+ $connection.Close()
+ return $table
+}
+
 # sql authentication without database name
-invoke-sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
+Sqlquery -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
