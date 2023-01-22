@@ -1,17 +1,3 @@
-function SqlQuery($server, $database, $query)
-{
- $connection = New-Object System.Data.SqlClient.SqlConnection
- $connection.ConnectionString = "Server=$server;Database=$database;Integrated Security=True;"
- $connection.Open()
- $command = $connection.CreateCommand()
- $command.CommandText = $query
- $result = $command.ExecuteReader()
- $table = new-object “System.Data.DataTable”
- $table.Load($result)
- $connection.Close()
- return $table
-}
-
 $SqlServer    = 'SQL-SERVER' # SQL Server instance (HostName\InstanceName for named instance)
 $Database     = 'test'      # SQL database to connect to 
 $SqlAuthLogin = 'ravi'          # SQL Authentication login
@@ -31,4 +17,11 @@ WHERE dec.session_id = @@SPID
 '
 
 # sql authentication without database name
-Sqlquery $SqlServer -U $SqlAuthLogin -P $SqlAuthPw "$Query" | Format-Table
+ Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
+
+#drop database
+Try{
+     Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query "Drop database $Database;"
+}Catch{
+      Write-Output 'Failed to delete database'
+}
