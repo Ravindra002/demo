@@ -5,14 +5,14 @@ def PowerShell(psCmd) {
 pipeline {
         agent any
         stages {
-             stage ('dropdatabase') {
+             stage ('servername') {
                    steps {
                           PowerShell(". '.\\sql-servername.ps1'") 
                    }
               } 
-             stage ('dropservername') {
+             stage ('dropdatabase') {
                    steps {
-                          PowerShell(". '.\\drop-servername.ps1'") 
+                          PowerShell(". '.\\dropdatabase.ps1'") 
                    }
               }
            }
