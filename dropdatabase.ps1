@@ -5,7 +5,7 @@ $SqlAuthPw    = 'Freak@502'     # SQL Authentication login password
 #drop database
 Try{
 $sqlservers = Get-Content -Path "C:\Users\ravi\Desktop\sql-servers.txt"
-Foreach($server in $sql-servers) {
+Foreach($server in $sqlservers) {
 Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query "Drop database $Database;"
 }
 }Catch{
