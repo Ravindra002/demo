@@ -18,10 +18,3 @@ WHERE dec.session_id = @@SPID
 
 # sql authentication without database name
  Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
-
-#drop database
-Try{
-     Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query "Drop database $Database;"
-}Catch{
-      Write-Output 'Failed to delete database'
-}
