@@ -17,4 +17,7 @@ WHERE dec.session_id = @@SPID
 '
 
 # sql authentication without database name
- Invoke-Sqlcmd -ServerInstance $SqlServer -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
+$sqlservers = Get-Content -Path "C:\Users\ravi\Desktop\sql-servers.txt"
+Foreach($server in $sql-servers) {
+Invoke-Sqlcmd -ServerInstance $Server -U $SqlAuthLogin -P $SqlAuthPw -Query $Query | Format-Table
+}
