@@ -1,6 +1,6 @@
 $Database     = 'test'      # SQL database to connect to 
 $SqlAuthLogin = 'ravi'          # SQL Authentication login
-$SqlAuthPw    = 'Freak@502'     # SQL Authentication login password
+$SqlAuthPw    = 'Freak@50'     # SQL Authentication login password
 #drop database
 
 $sqlservers = Get-Content -Path "C:\Users\ravi\Desktop\sql-servers.txt"
