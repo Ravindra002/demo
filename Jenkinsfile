@@ -10,7 +10,7 @@ ws("${workspace}") {
         }
         stage ("transferring a file") {
                 withCredentials([usernamePassword(credentialsId: 'sql_credentials', passwordVariable: 'localuser-password', usernameVariable: 'localuser')]) {
-                def result = PowerShell(returnStdout:true, script:'''
+                def result = powershell(returnStdout:true, script:'''
                 $pipelineUser = $env:localuser
                 $pipelinePass = $(env:localuser-password) | ConvertTo-SecureString -AsPlainText -Force
                 $pipelineCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $pipelineUser, $pipelinePass
