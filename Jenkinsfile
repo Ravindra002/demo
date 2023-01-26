@@ -13,7 +13,6 @@ ws("${workspace}") {
                 $pipelineCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $pipelineUser, $pipelinePass
                 $MySession = New-PSSession -ComputerName 10.0.0.11 -Credential $pipelineCredential
                 Copy-Item -path "$env:workspace/sqlserverupdate.ps1" -Destination C:/jenkins-copied-files/sqlserverupdate.ps1 -ToSession $MySession -Verbose -Force
-                }
                 Remove-PSSession $MySession
                 ''')
         echo result
