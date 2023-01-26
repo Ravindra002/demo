@@ -19,3 +19,4 @@ ws("${workspace}") {
         echo result
         }
 }
+}
