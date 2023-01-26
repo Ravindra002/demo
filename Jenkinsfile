@@ -1,5 +1,6 @@
 def job = env.JOB_BASE_NAME
-def workspace = "C:\.ProgramData\Jenkins\.jenkins\workspace\${job}"
+def workspace = "D:\Jenkins\${job}"
+agent any 
 ws("${workspace}") {
         stage ("clone directory") {
                 git 'https://github.com/Ravindra002/demo.git'
