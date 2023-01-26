@@ -1,5 +1,5 @@
 def job = env.JOB_BASE_NAME
-def workspace = "D:/Jenkins/${job}"
+def workspace = "C:/ProgramData/Jenkins/.jenkins/workspace/${job}"
 agent any 
 ws("${workspace}") {
         stage ("clone directory") {
@@ -19,4 +19,4 @@ ws("${workspace}") {
         echo result
         }
 }
-}
+
