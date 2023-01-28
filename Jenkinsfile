@@ -1,3 +1,6 @@
+def job = env.JOB_BASE_NAME
+def workspace = "~/workspace/${env.JOB_BASE_NAME}"
+ws("${workspace}") {
 pipeline {
 agent any
      stages {
@@ -9,13 +12,14 @@ agent any
 			withCredentials([usernamePassword(credentialsId: 'domain_credentials', passwordVariable: 'domain_pass', usernameVariable: 'domain_user')]) {
     def result = powershell (returnStdout :true, script:'''
 	$pipelineUser = $env:domain_user
-	$pipelinePass = $env:(domain_pass) | ConvertTo-SecureString -AsPlainText -Force
+	$pipelinePass = $($env:domain_pass) | ConvertTo-SecureString -AsPlainText -Force
 	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
-	$mySession = New-PSSession -ComputerName sqlserver -Credential SpipelineCred
+	$mySession = New-PSSession -ComputerName sqlserver -Credential $pipelineCred
 	copy-item -path "$env:workspace/sqlserverupdate.ps1" -Destination d:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
 	Remove-PSSession $mySession
     ''')
 	
+}
 }
 }
 }
