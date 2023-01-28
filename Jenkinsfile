@@ -1,6 +1,8 @@
 pipeline {
 agent any
+     stages {
         stage('Copying files') {
+	    steps {
                 script {
                     def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
                     for (sqlserver in sqlservers) {
@@ -14,6 +16,8 @@ agent any
 	Remove-PSSession $mySession
     ''')
 	
+}
+}
 }
 }
 }
