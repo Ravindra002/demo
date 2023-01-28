@@ -1,4 +1,3 @@
-pipeline {
 def job = env.JOB_BASE_NAME
 def workspace = "~/workspace/${env.JOB_BASE_NAME}"
 ws("${workspace}") {
@@ -21,7 +20,6 @@ git 'https://github.com/Ravindra002/demo.git'
 	Remove-PSSession $mySession
     ''')
 	
-}
 }
 }
 }
