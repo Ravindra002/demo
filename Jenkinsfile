@@ -22,5 +22,3 @@ git 'https://github.com/Ravindra002/demo.git'
 }
 }
 }
-}
-}
