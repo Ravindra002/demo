@@ -10,7 +10,7 @@ agent any
     def result = powershell (returnStdout :true, script:'''
 	$pipelineUser = $env:domain_user
 	$pipelinePass = $($env:domain_pass) | ConvertTo-SecureString -AsPlainText -Force
-	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
+	$pipelineCred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
 	$mySession = New-PSSession -ComputerName sqlserver -Credential $pipelineCred
 	Invoke-Command -Session $mySession -ScriptBlock { write-output "Invoking sqlserverupdare.ps1 on $env:ComputerName"
 	C:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -Verbose
