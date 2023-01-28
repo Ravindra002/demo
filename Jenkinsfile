@@ -1,7 +1,7 @@
+pipeline {
 def job = env.JOB_BASE_NAME
 def workspace = "~/workspace/${env.JOB_BASE_NAME}"
 ws("${workspace}") {
-pipeline {
 agent any
      stages {
         stage('Copying files') {
