@@ -13,7 +13,7 @@ agent any
 	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
 	$mySession = New-PSSession -ComputerName sqlserver -Credential $pipelineCred
 	Invoke-Command -Session $mySession -ScriptBlock { write-output "Invoking sqlserverupdare.ps1 on $env:ComputerName"
-	c:/sqlserverupdate.ps1 -Verbose
+	C:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -Verbose
 	}
 	Remove-PSSession $mySession
 	''')
