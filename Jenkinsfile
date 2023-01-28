@@ -1,29 +1,30 @@
 def job = env.JOB_BASE_NAME
-def workspace = "C:/ProgramData/Jenkins/.jenkins/workspace/${job}"
+def workspace = "~/workspace/${env.JOB_BASE_NAME}"
 ws("${workspace}") {
-        stage ("clone directory") {
-                git 'https://github.com/Ravindra002/demo.git'
-        }
-        stage ("transferring a file") {
-                def result = powershell(returnStdout:true, script:'''
-                remote = [:]
-                remote.name = "instance-1"
-                remote.host = "10.0.0.11"
-                remote.allowAnyHosts = true
-                remote.failOnError = true
-                withCredentials([usernamePassword(credentialsId: 'sql_credentials', passwordVariable: 'localuser-password', usernameVariable: 'localuser')]) {
-                        remote.user = $env:localuser
-                        remote.password = $(env:localuser-password) | ConvertTo-SecureString -AsPlainText -Force
+stage ("Clone Directory") {
+git 'https://github.com/Ravindra002/demo.git'
 }
-                $pipelineUser = $env:localuser
-                $pipelinePass = 
-                $pipelineCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $pipelineUser, $pipelinePass
-                $MySession = New-PSSession -ComputerName 10.0.0.11 -Credential $pipelineCredential
-                Copy-Item -path "$env:workspace/sqlserverupdate.ps1" -Destination C:/jenkins-copied-files/sqlserverupdate.ps1 -ToSession $MySession -Verbose -Force
-                Remove-PSSession $MySession
-                ''')
-        echo result
-        }
+pipeline {
+    agent any
+    stages {
+        stage('Copying files') {
+                script {
+                    def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
+                    for (sqlserver in sqlservers) {
+			withCredentials([usernamePassword(credentialsId: 'sql_credentials', passwordVariable: 'localuser-password', usernameVariable: 'localuser')]) {
+    def result = powershell (returnStdout :true, script:'''
+	$pipelineUser = $env:localuser
+	$pipelinePass = $env:(localuser-password) | ConvertTo-SecureString -AsPlainText -Force
+	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
+	$mySession = New-PSSession -ComputerName $sqlserver -Credential SpipelineCred
+	copy-item -path "$env:workspace/sqlserverupdate.ps1" -Destination d:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
+	Remove-PSSession $mySession
+    ''')
+	
 }
-
+}
+}
+}
+}
+}
 }
