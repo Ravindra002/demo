@@ -5,7 +5,7 @@ agent any
 	    steps {
                 script {
 		    def sqlservers = ['sql-server2', 'sql-server']
-                    for (sqlserver in sqlservers) {
+                    for ($sqlserver in $sqlservers) {
                     withCredentials([usernamePassword(credentialsId: 'domain_credentials', passwordVariable: 'domain_pass', usernameVariable: 'domain_user')]) {
     def result = powershell (returnStdout :true, script:'''
 	$pipelineUser = $env:domain_user
