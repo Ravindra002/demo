@@ -4,7 +4,8 @@ ws("${workspace}") {
 stage ("Clone Directory") {
 git 'https://github.com/Ravindra002/demo.git'
 }
-    agent none
+node('sql-server') {
+    agent any
     stages {
         stage('Copying files') {
                 script {
@@ -20,6 +21,7 @@ git 'https://github.com/Ravindra002/demo.git'
 	Remove-PSSession $mySession
     ''')
 	
+}
 }
 }
 }
