@@ -1,8 +1,5 @@
 pipeline {
 agent any
-stage ("Clone Directory") {
-git 'https://github.com/Ravindra002/demo.git'
-}
         stage('Copying files') {
                 script {
                     def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
