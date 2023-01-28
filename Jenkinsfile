@@ -4,7 +4,7 @@ agent any
         stage('Copying files') {
 	    steps {
                 script {
-                    def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
+                    def sqlservers = ['sql-server2', 'sql-server']
                     for (sqlserver in sqlservers) {
 			withCredentials([usernamePassword(credentialsId: 'domain_credentials', passwordVariable: 'domain_pass', usernameVariable: 'domain_user')]) {
     def result = powershell (returnStdout :true, script:'''
@@ -12,10 +12,12 @@ agent any
 	$pipelinePass = $($env:domain_pass) | ConvertTo-SecureString -AsPlainText -Force
 	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
 	$mySession = New-PSSession -ComputerName sqlserver -Credential $pipelineCred
-	copy-item -path "C:/ProgramData/Jenkins/.jenkins/workspace/powershell/sqlserverupdate.ps1" -Destination C:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
+	Invoke-Command -Session $mySession -ScriptBlock { write-output "Invoking sqlserverupdare.ps1 on $env:ComputerName"
+	c:/sqlserverupdate.ps1 -Verbose
+	}
 	Remove-PSSession $mySession
-    ''')
-	
+	''')
+	echo result	
 }
 }
 }
