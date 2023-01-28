@@ -11,10 +11,10 @@ pipeline {
                 script {
                     def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
                     for (sqlserver in sqlservers) {
-			withCredentials([usernamePassword(credentialsId: 'sql_credentials', passwordVariable: 'localuser-password', usernameVariable: 'localuser')]) {
+			withCredentials([usernamePassword(credentialsId: 'domain_credentials', passwordVariable: 'domain-pass', usernameVariable: 'domain-user')]) {
     def result = powershell (returnStdout :true, script:'''
-	$pipelineUser = $env:localuser
-	$pipelinePass = $env:(localuser-password) | ConvertTo-SecureString -AsPlainText -Force
+	$pipelineUser = $env:domain-user
+	$pipelinePass = $env:(domain-pass) | ConvertTo-SecureString -AsPlainText -Force
 	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
 	$mySession = New-PSSession -ComputerName $sqlserver -Credential SpipelineCred
 	copy-item -path "$env:workspace/sqlserverupdate.ps1" -Destination d:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
