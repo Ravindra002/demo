@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$ServerName = "instance-1"
+$ServerName = "$env:ComputerName"
 
 
 function UpdateSQLServerName([String]$Hostname)
