@@ -1,12 +1,8 @@
-def job = env.JOB_BASE_NAME
-def workspace = "~/workspace/${env.JOB_BASE_NAME}"
-ws("${workspace}") {
+pipeline {
+agent any
 stage ("Clone Directory") {
 git 'https://github.com/Ravindra002/demo.git'
 }
-node('sql-server') {
-    agent any
-    stages {
         stage('Copying files') {
                 script {
                     def sqlservers = ['sql-server2', 'sql-server', 'jenkins-server']
