@@ -1,7 +1,4 @@
 pipeline {
-def job = env.JOB_BASE_NAME
-def workspace = "~/workspace/${env.JOB_BASE_NAME}"
-ws("${workspace}") {
 agent any
      stages {
         stage('Copying files') {
@@ -15,11 +12,10 @@ agent any
 	$pipelinePass = $($env:domain_pass) | ConvertTo-SecureString -AsPlainText -Force
 	$pipelineCred = New-Object System.Management.Automation.PSCredential -ArgumentList $pipelineUser $pipelinePass
 	$mySession = New-PSSession -ComputerName sqlserver -Credential $pipelineCred
-	copy-item -path "$env:workspace/sqlserverupdate.ps1" -Destination d:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
+	copy-item -path "C:/ProgramData/Jenkins/.jenkins/workspace/powershell/sqlserverupdate.ps1" -Destination C:/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
 	Remove-PSSession $mySession
     ''')
 	
-}
 }
 }
 }
