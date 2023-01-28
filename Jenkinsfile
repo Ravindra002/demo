@@ -4,7 +4,7 @@ ws("${workspace}") {
 stage ("Clone Directory") {
 git 'https://github.com/Ravindra002/demo.git'
 }
-    agent any
+    agent none
     stages {
         stage('Copying files') {
                 script {
