@@ -1,10 +1,10 @@
+pipeline {
 def job = env.JOB_BASE_NAME
 def workspace = "~/workspace/${env.JOB_BASE_NAME}"
 ws("${workspace}") {
 stage ("Clone Directory") {
 git 'https://github.com/Ravindra002/demo.git'
 }
-pipeline {
     agent any
     stages {
         stage('Copying files') {
