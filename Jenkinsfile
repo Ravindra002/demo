@@ -1,8 +1,9 @@
 pipeline {
 agent any
-     	stages {
-        	stage('Copying files') {
+     stages {
+        stage('Copying files') {
 			steps {
+				script {
                 		def result = powershell (returnStdout :true, script:''' 
                 		$Password = $env:Password | ConvertTo-SecureString -AsPlainText -Force
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
@@ -13,8 +14,10 @@ agent any
 				echo result	
 			}
 		}
-		stage('Update SQL SERVERNAME') {
+	}
+			stage('Update SQL SERVERNAME') {
 			steps {
+				script {
                 		def result = powershell (returnStdout :true, script:'''
                 		$Password = $env:Password | ConvertTo-SecureString -AsPlainText -Force
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
@@ -28,4 +31,5 @@ agent any
 			}
 		}
 	}
+}
 }
