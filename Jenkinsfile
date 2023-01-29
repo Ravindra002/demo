@@ -20,7 +20,7 @@ agent any
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
 				$mySession = New-PSSession -ComputerName $env:Computer -Credential $Cred
 				Invoke-Command -Session $mySession -ScriptBlock { write-output "Invoking sqlserverupdate.ps1 on $env:ComputerName"
-				. C:\Users\domain-admin\Desktop\sqlserverupdate.ps1 -Verbose
+				. C:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -Verbose
 				}
 				Remove-PSSession $mySession
 				''')
