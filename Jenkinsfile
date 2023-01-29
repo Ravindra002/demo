@@ -8,7 +8,7 @@ agent any
                 		$Password = $env:Password | ConvertTo-SecureString -AsPlainText -Force
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
 				$mySession = New-PSSession -ComputerName $env:Computer -Credential $Cred
-				copy-item -Path "D:/Jenkins/sqlserverupdate.ps1" -Destination C:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
+				copy-item -Path "d:/Jenkins/sqlserverupdate.ps1" -Destination c:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
 				Remove-PSSession $mySession
 				''')
 				echo result	
@@ -23,7 +23,7 @@ agent any
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
 				$mySession = New-PSSession -ComputerName $env:Computer -Credential $Cred
 				Invoke-Command -Session $mySession -ScriptBlock { write-output "Invoking sqlserverupdate.ps1 on $env:ComputerName"
-				. C:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -Verbose
+				. c:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -Verbose
 				}
 				Remove-PSSession $mySession
 				''')
