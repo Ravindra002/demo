@@ -7,8 +7,9 @@ agent any
                 		def result = powershell (returnStdout :true, script:''' 
                 		$Password = $env:Password | ConvertTo-SecureString -AsPlainText -Force
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($env:User, $Password)
+				$source = 'd:/Jenkins/sqlserverupdate.ps1'
 				$mySession = New-PSSession -ComputerName $env:Computer -Credential $Cred
-				Copy-Item -path 'd:/Jenkins/sqlserverupdate.ps1' -Destination c:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
+				Copy-Item -path $source -Destination c:/Users/domain-admin/Desktop/sqlserverupdate.ps1 -ToSession $mySession -Verbose - Force
 				Remove-PSSession $mySession
 				''')
 				echo result	
