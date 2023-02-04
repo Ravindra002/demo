@@ -1,2 +1,2 @@
-sql-server
+jenkins-server
 sql-server2
