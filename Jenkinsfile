@@ -21,7 +21,6 @@ agent any
 				$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($Username, $Password)
 				$mySession = New-PSSession -ComputerName $node -Credential $Cred
 				Invoke-Command -Session $mySession -ScriptBlock {Get-ComputerInfo -Property "OsName" | Format-Table } 
-				Remove-PSSession $mySession
 				}
 				''')
 				echo result	
